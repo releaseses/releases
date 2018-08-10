@@ -1,0 +1,5 @@
+@import '~bulma/bulma';
+
+textarea {
+  @extend .textarea, .is-large;
+}

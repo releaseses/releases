@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin</title>
+    <%= favicon %>
+  </head>
+  <body>
+    <%= yield %>
+    <script src="<%= webpack_asset_path('admin') %>"></script>
+  </body>
+</html>

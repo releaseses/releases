@@ -1,0 +1,11 @@
+{
+  "errors": [],
+  "warnings": [],
+  "version": "0.0.1",
+  "hash": "ee08f1d1c037982b7200",
+  "publicPath": "",
+  "assetsByChunkName": {
+    "admin": "admin-xxx.js",
+    "web": "web-xxx.js"
+  }
+}

@@ -1,0 +1,9 @@
+.viewer-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.viewer-body {
+  flex: 1;
+}
