@@ -1,0 +1,35 @@
+version: '3'
+services:
+  db:
+    image: postgres:11
+    restart: always
+    environment:
+      POSTGRES_DB: 'releases'
+      POSTGRES_USER: 'releases'
+      POSTGRES_PASSWORD: 'releases'
+
+  migrator:
+    build:
+      context: .
+      args:
+        INSTALL_PL_SQL: 'true'
+    environment:
+      DATABASE_URL: 'postgresql://releases:releases@db/releases'
+      HANAMI_ENV: 'production'
+    entrypoint: bash -c "/bin/sh ./scripts/wait-for-postgres.sh && bundle exec hanami db migrate"
+    depends_on:
+    - db
+
+  web:
+    build: .
+    image: releases/app:latest
+    ports:
+    - 80:2300
+    environment:
+      DATABASE_URL: 'postgresql://releases:releases@db/releases'
+      INBUILT_WEBPACK_DEV_SERVER: 'false'
+      WEBPACK_DEV_SERVER: 'false'
+      SERVE_STATIC_ASSETS: 'true'
+      HANAMI_ENV: 'production'
+    depends_on:
+    - migrator
