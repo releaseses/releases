@@ -1,0 +1,13 @@
+sudo: required
+
+language: generic
+
+services:
+- docker
+
+install:
+- docker-compose -f docker-compose.yml -f docker-compose.test.yml up --build --force-recreate -d
+- docker ps -a
+
+script:
+- docker-compose exec web bundle exec rake

@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    environment:
+      POSTGRES_DB: 'test'
+      POSTGRES_USER: 'test'
+      POSTGRES_PASSWORD: 'test'
+
+  migrator:
+    environment:
+      HANAMI_ENV: 'test'
+      DATABASE_URL: 'postgresql://test:test@db/test'
+
+  web:
+    build:
+      context: .
+      args:
+        CI: 'true'
+    environment:
+      NODE_ENV: 'test'
+      BABEL_ENV: 'test'
+      HANAMI_ENV: 'test'
+      WEBPACK_DEV_SERVER: 'false'
+      SERVE_STATIC_ASSETS: 'true'
+      INBUILT_WEBPACK_DEV_SERVER: 'false'
+      WEBPACK_PUBLIC_PATH: '../spec/support/'
+      DATABASE_URL: 'postgresql://test:test@db/test'
