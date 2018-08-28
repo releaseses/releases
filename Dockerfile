@@ -23,7 +23,7 @@ COPY . / ./
 COPY --from=frontend /releases/public/javascripts/ ./public/javascripts/
 
 RUN bundle install
-#   check if prod container skips it
+
 RUN if [ -z "$INSTALL_PL_SQL" ] ; then echo 'Skip plsql installation' ; \
     else apt-get -y update && apt-get install -y postgresql-client ; fi
 

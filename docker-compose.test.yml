@@ -17,6 +17,7 @@ services:
       args:
         CI: 'true'
     environment:
+      CC_TEST_REPORTER_ID: 'a58ddd1aae49507de14f527e7dfee18af02fb39ca1dffb350102ba123e3e1e0a'
       NODE_ENV: 'test'
       BABEL_ENV: 'test'
       HANAMI_ENV: 'test'
