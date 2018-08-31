@@ -1,4 +1,11 @@
 require 'rake'
+
+namespace :assets do
+  task :precompile do
+    exit(true)
+  end
+end
+
 require 'hanami/rake_tasks'
 
 begin
