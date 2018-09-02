@@ -14,17 +14,17 @@ services:
       args:
         INSTALL_PL_SQL: 'true'
     environment:
-      DATABASE_URL: 'postgresql://releases:releases@db/releases'
       HANAMI_ENV: 'production'
+      DATABASE_URL: 'postgresql://releases:releases@db/releases'
     entrypoint: bash -c "/bin/sh ./scripts/wait-for-postgres.sh && bundle exec hanami db migrate"
     depends_on:
-    - db
+      - db
 
   web:
     build: .
     image: releases/app:latest
     ports:
-    - 80:2300
+      - "80:2300"
     environment:
       DATABASE_URL: 'postgresql://releases:releases@db/releases'
       INBUILT_WEBPACK_DEV_SERVER: 'false'
@@ -32,4 +32,4 @@ services:
       SERVE_STATIC_ASSETS: 'true'
       HANAMI_ENV: 'production'
     depends_on:
-    - migrator
+      - migrator

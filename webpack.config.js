@@ -53,6 +53,7 @@ var config = {
 if (process.env.INBUILT_WEBPACK_DEV_SERVER === 'true') {
     config.devServer = {
         port: devServerPort,
+        host: '0.0.0.0',
         headers: {'Access-Control-Allow-Origin': '*'}
     }
     config.output.publicPath = '//' + devServerHost + ':' + devServerPort + '/'

@@ -1,0 +1,36 @@
+version: '3'
+volumes:
+  node_modules:
+services:
+  db:
+    environment:
+      POSTGRES_DB: 'releases_development'
+      POSTGRES_USER: 'development'
+      POSTGRES_PASSWORD: 'development'
+
+  migrator:
+    environment:
+      HANAMI_ENV: 'development'
+      DATABASE_URL: 'postgresql://development:development@db/releases_development'
+
+  web:
+    build:
+      context: .
+      args:
+        INSTALL_NODE: 'true'
+    ports:
+      - "80:2300"
+      - "3020:3020"
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    environment:
+      NODE_ENV: 'development'
+      BABEL_ENV: 'development'
+      HANAMI_ENV: 'development'
+      WEBPACK_DEV_SERVER: 'true'
+      SERVE_STATIC_ASSETS: 'false'
+      INBUILT_WEBPACK_DEV_SERVER: 'true'
+      WEBPACK_PUBLIC_PATH: '/'
+      DATABASE_URL: 'postgresql://development:development@db/releases_development'
+    entrypoint: bundle exec hanami server --host=0.0.0.0
