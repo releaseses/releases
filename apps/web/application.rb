@@ -291,7 +291,7 @@ module Web
         # Use fingerprint file name for asset paths
         #
         # See: http://hanamirb.org/guides/assets/overview
-        fingerprint true
+        fingerprint false
 
         # Content Delivery Network (CDN)
         #

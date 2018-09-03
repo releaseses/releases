@@ -1,0 +1,37 @@
+sudo: required
+
+deploy:
+  provider: heroku
+  app: releases-
+  api_key:
+    secure: M5YDLW76Z2cenxpYy0lX3BxWIiE+F26GN66KZ9aId4HinhA+IqyR6ypmUyP7TrZUf00cxxLRgH6NBmbLVGCkeIaRoSDJcudiIfutLKKsVzPbnIJEL1lmnPxgfnwI4OTYljULyvm+I/IxQvcMNXEhbGszQcWbc+jC3sOHA8n0fn0KLNDQH9ohPc4A1V8TbUE3RdPfz1huoj3LdU1OOgS4C+akm3hQhV7TY+GQUwqmF2Jkrge2t05q2UFAmydDxe+svubw4Q4m7+IVanfnaoaGPjqaGQ0/Go//kayzPBny8TVPfXBtMJrQp/pwKsJDVRL8VQGDzQJxdx/v8iFhb+tC/QSPRrVrwHANaYuFT6v+xTB92gNDBx/b36QhizSbUmpMTeP9EffETuDon8PvecN/YBHatnbjPa5LE1db9h2bYyb6m5Imd6qgVjezDP+vIM/ijHZON9CXll7l8f73sNSWhmQBtV8K73dAadHui84VGi7Jh2G931GsR3q9uINsP++hO5t/NsFQOCsy6r2B1yWLUPJe/3gO5quX6EYlKaF4YOqIgsbJFZASNe8bOJ1dcQ99Tmdw4M7kCOTbzIX2PJZoHQ0F7ytDtNhQklk3aY9+zDiBzE1LBd/eKP2dzdsiRwDnvA+qOk/ce7ELb38EYaOAKdbvKvXnPH+dQCNyTMsPhM8=
+  on:
+    all_branches: true
+  run:
+    - "bundle exec hanami db migrate"
+env:
+  global:
+    - CC_TEST_REPORTER_ID=a58ddd1aae49507de14f527e7dfee18af02fb39ca1dffb350102ba123e3e1e0a
+
+language: generic
+
+services:
+  - docker
+
+install:
+  - docker-compose -f docker-compose.yml -f docker-compose.test.yml up --build --force-recreate -d
+  - docker ps -a
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  - docker-compose exec web bundle exec rake
+
+after_script:
+  - docker cp releases_web_1:/usr/src/app/coverage/.resultset.json ./.resultset.json
+  - ls -la
+  - ./cc-test-reporter format-coverage ./.resultset.json --prefix /usr/src/app -t simplecov -o ./codeclimate.backend.json
+  - ./cc-test-reporter sum-coverage ./codeclimate.*.json -p 1 -o ./codeclimate.total.json
+  - ./cc-test-reporter upload-coverage -i ./codeclimate.total.json
+  - rm -rf ./cc-test-reporter
