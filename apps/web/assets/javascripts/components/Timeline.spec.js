@@ -53,5 +53,14 @@ describe('component', () => {
             expect(wrapper.find(Link).first().props().to).toMatch(/1\.0\.2/)
             expect(wrapper.find(Link).last().props().to).toMatch(/1\.0\.1/)
         })
+
+        it('shows link to create release', () => {
+            const wrapper = shallow(
+                    <Timeline {...setup({
+                        releases: []
+                    })}/>)
+
+            expect(wrapper.find('a').first().prop('href')).toMatch(/\/admin\/releases\/new/)
+        })
     })
 })

@@ -44,7 +44,7 @@ export default class Timeline extends Component {
     renderEmptyReleases() {
         return (
             <section className="section">
-                You can create your first release <Link to="/releases/new">here</Link>
+                You can create your first release <a href={'/admin/releases/new'}>here</a>
             </section>
         );
     }
@@ -52,11 +52,7 @@ export default class Timeline extends Component {
     renderReleases() {
         return (
             <div className="timeline">
-
                 { this.props.releases.map((release, index) => this.renderRelease(index, release)) }
-                {/*<div className="timeline-header">*/}
-                    {/*<span className="tag is-medium is-primary">End</span>*/}
-                {/*</div>*/}
             </div>
         );
     }
