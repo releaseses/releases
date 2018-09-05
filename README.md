@@ -8,21 +8,30 @@ So why not to start telling your audience how much passion do you put into the p
 
 ## Installation
 
+The recommended way to run project environment is using the [docker-compose](https://github.com/docker/compose).
+Instructions assume that docker-compose and docker are installed and developer has a general knowledge on how to use it.
+Here can be found the instructions on how to [install](https://docs.docker.com/compose/install/#install-compose) and [use it](https://docs.docker.com/compose/production/).
+
 ### Production
 
-The recommended way to run project in the production mode is using the [docker-compose](https://github.com/docker/compose).
-You can start the production environment by running a following command :
+The production environment can be started by running a following command :
 
 ```bash
-docker-compose up -d
+docker-compose up -d # start containers in detached mode
 ```
 
 ### Development
 
-The recommended way to run project in the development mode is using the [docker-compose](https://github.com/docker/compose).
-You can start the development environment by running a following commands :
+The development environment can be started by running following commands :
 
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose.development.yml up --build --no-cache -d
-docker exec releases_web_1 npm install
+docker-compose -f docker-compose.yml -f docker-compose.development.yml up --build --no-cache -d # build and start containers in detached mode
+docker exec releases_web_1 npm install # build assets
 ```
+
+When containers are running the next commands can be useful : 
+
+```bash
+docker exec -it releases_web_1 /bin/bash # connect to the shell of the application container
+docker exec -it releases_web_1 bundle exec hanami console # connect to the console of the app
+``` 
