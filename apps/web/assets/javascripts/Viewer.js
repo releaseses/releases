@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, Switch } from 'react-router-dom'
 import { ConnectedRouter as Router } from 'connected-react-router'
 import './Viewer.scss'
 import Logo from './components/Logo'
@@ -27,10 +27,12 @@ class Viewer extends Component {
                         </div>
                     </nav>
                     <div className={'viewer-body'}>
+                        <Switch>
                         <Route exact path="/" component={ReleaseTimelinePage}/>
                         <Route exact path="/releases" component={ReleaseTimelinePage}/>
                         <Route path="/releases/:version" component={ReleasePage}/>
-                        <Route path="/error/404" component={NotFound} />
+                        <Route component={NotFound} />
+                        </Switch>
                     </div>
                     <footer className="footer">
                         <div className="content has-text-centered">
