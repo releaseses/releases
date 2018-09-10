@@ -1,0 +1,4 @@
+scripts/* linguist-vendored
+spec/support/* linguist-vendored
+apps/admin/assets/javascripts/registerServiceWorker.js linguist-vendored
+apps/web/assets/javascripts/registerServiceWorker.js linguist-vendored
