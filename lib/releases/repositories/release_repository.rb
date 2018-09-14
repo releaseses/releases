@@ -1,4 +1,9 @@
 class ReleaseRepository < Hanami::Repository
+  associations do
+    has_many :release_tags
+    has_many :tags, through: :release_tags
+  end
+
   def find_released_with_version(moment, version)
     releases
         .where { released_at <= moment }
