@@ -1,32 +1,19 @@
 module Builder::Controllers::Tags
   class Create
-    include Import[:tag_repository]
+    include Import[operation: :create_tag_operation]
     include Builder::Action
-
-    params do
-      required(:tag).schema do
-        required(:name).filled
-        required(:color).filled
-      end
-    end
+    include Dry::Monads::Result::Mixin
 
     expose :tag, :errors
 
     def call(params)
-      @errors = params.errors
-      if params.valid?
-        @tag = tag_repository.create(tag_params_with_slug)
+      case result = operation.call(payload: params.get(:tag))
+      when Success
+        @tag = result.value!
         self.status = ::Rack::Utils.status_code(:created)
-      else
+      when Failure
+        @errors = result.failure
         self.status = ::Rack::Utils.status_code(:unprocessable_entity)
-      end
-    end
-
-    private
-
-    def tag_params_with_slug
-      params.get(:tag).tap do |p|
-        p[:slug] = Hanami::Utils::String.dasherize(params.get(:tag).fetch(:name))
       end
     end
   end

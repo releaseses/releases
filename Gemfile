@@ -35,3 +35,5 @@ end
 
 gem 'dry-container'
 gem 'dry-auto_inject'
+gem 'dry-monads'
+gem 'dry-validation'

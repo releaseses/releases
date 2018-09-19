@@ -59,6 +59,10 @@ GEM
       dry-container (~> 0.2, >= 0.2.6)
       dry-core (~> 0.2)
       dry-equalizer (~> 0.2)
+    dry-monads (1.0.1)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.4, >= 0.4.4)
+      dry-equalizer
     dry-struct (0.3.1)
       dry-configurable (~> 0.1)
       dry-core (~> 0.3)
@@ -220,6 +224,8 @@ DEPENDENCIES
   dotenv (~> 2.0)
   dry-auto_inject
   dry-container
+  dry-monads
+  dry-validation
   hanami (~> 1.2)
   hanami-model (~> 1.2)
   hanami-webconsole
@@ -232,5 +238,8 @@ DEPENDENCIES
   simplecov
   tilt-jbuilder!
 
+RUBY VERSION
+   ruby 2.5.1p57
+
 BUNDLED WITH
-   1.16.2
+   1.16.4
