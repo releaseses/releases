@@ -7,10 +7,6 @@ describe 'List releases', type: :feature do
     ReleaseRepository.new.create({ version: '3.0.0', title: 'Third release',  released_at: Time.now })
   end
 
-  after do
-    ReleaseRepository.new.clear
-  end
-
   it 'lists all releases by creation date' do
     get '/builder/releases'
 

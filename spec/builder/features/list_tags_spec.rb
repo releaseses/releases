@@ -7,10 +7,6 @@ describe 'List tags', type: :feature do
     TagRepository.new.create({ name: 'tag 1', slug: 'tag-1', color: '#FF0001' })
   end
 
-  after do
-    TagRepository.new.clear
-  end
-
   it 'lists all tags by slug' do
     get '/builder/tags'
 

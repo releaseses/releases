@@ -1,10 +1,4 @@
 RSpec.describe CreateTag, type: :operation do
-  before do
-    TagRepository.new.clear
-  end
-  after do
-    TagRepository.new.clear
-  end
 
   describe '#call' do
 
@@ -44,5 +38,6 @@ RSpec.describe CreateTag, type: :operation do
         expect(TagRepository.new.all.size).to eq(1)
       end
     end
+
   end
 end

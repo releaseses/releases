@@ -8,10 +8,6 @@ describe 'List releases', type: :feature do
     ReleaseRepository.new.create({ version: '3.0.0', title: 'Third release',  released_at: now + 3600 })
   end
 
-  after do
-    ReleaseRepository.new.clear
-  end
-
   it 'lists all releases by release date' do
     get '/viewer/releases'
 

@@ -1,9 +1,6 @@
 require 'features_helper'
 
 describe 'Update release', type: :feature do
-  after do
-    ReleaseRepository.new.clear
-  end
 
   let(:release) { ReleaseRepository.new.create({ version: '1.0.0', title: 'First release' }) }
 

@@ -1,16 +1,11 @@
 RSpec.describe ReleaseRepository, type: :repository do
   let (:repo) { ReleaseRepository.new }
 
-  after do
-    repo.clear
-  end
-
   describe '#find_by_version' do
     let(:yesterday) { Time.parse('1999-12-31 00:00:00') }
     let(:today) { Time.parse('2000-01-01 00:00:00') }
 
     before do
-      repo.clear
       repo.create(version: '1.0.0', released_at: today)
     end
 
@@ -35,7 +30,6 @@ RSpec.describe ReleaseRepository, type: :repository do
 
   describe '#ordered_by_release' do
     before do
-      repo.clear
       repo.create(version: '2.0.0', released_at: Time.now - 2)
       repo.create(version: '1.0.0', released_at: Time.now - 3)
       repo.create(version: '3.0.0', released_at: Time.now - 1)
@@ -50,7 +44,6 @@ RSpec.describe ReleaseRepository, type: :repository do
 
   describe '#ordered_by_creation_date' do
     before do
-      repo.clear
       repo.create(version: '2.0.0', released_at: Time.now - 2)
       repo.create(version: '1.0.0', released_at: Time.now - 3)
       repo.create(version: '3.0.0', released_at: Time.now - 1)
@@ -65,7 +58,6 @@ RSpec.describe ReleaseRepository, type: :repository do
 
   describe '#released_before' do
     before do
-      repo.clear
       repo.create(version: '1.0.0', released_at: Time.parse('2017-01-01 01:01:01'))
       repo.create(version: '2.0.0', released_at: Time.parse('2018-01-01 01:01:01'))
       repo.create(version: '3.0.0', released_at: Time.parse('2019-01-01 01:01:01'))

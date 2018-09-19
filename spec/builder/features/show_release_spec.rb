@@ -1,9 +1,6 @@
 require 'features_helper'
 
 describe 'Show release', type: :feature do
-  after do
-    ReleaseRepository.new.clear
-  end
 
   describe 'existing release' do
     let(:release) { ReleaseRepository.new.create({ version: '1.0.0', title: 'First release',  released_at: Time.parse('2020-01-01 01:01:01'), summary_raw: '# Hello world!' }) }

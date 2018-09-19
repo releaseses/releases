@@ -1,9 +1,6 @@
 require 'features_helper'
 
 describe 'Show release', type: :feature do
-  after do
-    ReleaseRepository.new.clear
-  end
 
   describe 'existing' do
     let(:now) { Time.parse('2020-01-01 01:01:01') }
@@ -30,4 +27,5 @@ describe 'Show release', type: :feature do
       expect(last_response.status).to eq(404)
     end
   end
+
 end

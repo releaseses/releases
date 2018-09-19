@@ -1,9 +1,6 @@
 require 'features_helper'
 
 describe 'Create tag', type: :feature do
-  after do
-    TagRepository.new.clear
-  end
 
   describe 'successful request' do
     before do
