@@ -1,18 +1,6 @@
 RSpec.describe TagRepository, type: :repository do
   let (:repo) { TagRepository.new }
 
-  before do
-    ReleaseRepository.new.clear
-    TagRepository.new.clear
-    ReleaseTagRepository.new.clear
-  end
-
-  after do
-    ReleaseRepository.new.clear
-    TagRepository.new.clear
-    ReleaseTagRepository.new.clear
-  end
-
   describe '#released_before' do
     before do
       release1 = ReleaseRepository.new.create(version: '1.0.0', released_at: Time.parse('2017-01-01 01:01:01'))

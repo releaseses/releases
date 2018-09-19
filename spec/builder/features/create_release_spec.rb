@@ -1,9 +1,6 @@
 require 'features_helper'
 
 describe 'Create release', type: :feature do
-  after do
-    ReleaseRepository.new.clear
-  end
 
   describe 'successful request' do
     before do
