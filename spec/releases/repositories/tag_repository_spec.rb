@@ -40,4 +40,31 @@ RSpec.describe TagRepository, type: :repository do
       expect(tags.map(&:name)).to eq(['Tag 2', 'Tag 3', 'Tag 1', 'Tag 4'])
     end
   end
+
+  describe '#find_by_slug' do
+    before do
+      TagRepository.new.create(name: 'Tag 1', slug: 'tag-1', color: '#FF0000')
+      TagRepository.new.create(name: 'Tag 4', slug: 'tag-4', color: '#FF0000')
+    end
+
+    it 'returns tag' do
+      tag = repo.find_by_slug('tag-1')
+
+      expect(tag.name).to eq('Tag 1')
+    end
+  end
+
+  describe '#all_all_ordered_by_slug' do
+    before do
+      TagRepository.new.create({ name: 'tag 3', slug: 'tag-3', color: '#FF0003' })
+      TagRepository.new.create({ name: 'tag 1', slug: 'tag-1', color: '#FF0001' })
+      TagRepository.new.create({ name: 'tag 2', slug: 'tag-2', color: '#FF0002' })
+    end
+
+    it 'orders by slug' do
+      tags = TagRepository.new.ordered_by_slug
+
+      expect(tags.map(&:slug)).to eq(%w(tag-1 tag-2 tag-3))
+    end
+  end
 end
