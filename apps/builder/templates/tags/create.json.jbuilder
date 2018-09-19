@@ -6,6 +6,6 @@ if tag.present?
   end
 end
 
-if errors.any?
+if errors.present?
   json.errors errors
 end
