@@ -2,9 +2,9 @@ require 'features_helper'
 
 describe 'List tags', type: :feature do
   before do
-    TagRepository.new.create({ name: 'tag 3', slug: 'tag-3', color: '#FF0003' })
-    TagRepository.new.create({ name: 'tag 2', slug: 'tag-2', color: '#FF0002' })
-    TagRepository.new.create({ name: 'tag 1', slug: 'tag-1', color: '#FF0001' })
+    Fabricate.create(:tag, { name: 'tag 3', slug: 'tag-3', color: '#FF0003' })
+    Fabricate.create(:tag, { name: 'tag 2', slug: 'tag-2', color: '#FF0002' })
+    Fabricate.create(:tag, { name: 'tag 1', slug: 'tag-1', color: '#FF0001' })
   end
 
   it 'lists all tags by slug' do
