@@ -2,7 +2,7 @@ require 'features_helper'
 
 describe 'Update release', type: :feature do
 
-  let(:release) { ReleaseRepository.new.create({ version: '1.0.0', title: 'First release' }) }
+  let(:release) { Fabricate.create(:release, { version: '1.0.0', title: 'First release' }) }
 
   describe 'successful request' do
     before do

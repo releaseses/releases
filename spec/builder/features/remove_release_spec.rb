@@ -1,7 +1,7 @@
 require 'features_helper'
 
 describe 'Remove release', type: :feature do
-  let(:release) { ReleaseRepository.new.create({ version: '1.0.0', title: 'First release' }) }
+  let(:release) { Fabricate.create(:release, { version: '1.0.0', title: 'First release' }) }
 
   describe 'existing release' do
     before do

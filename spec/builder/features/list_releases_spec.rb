@@ -2,9 +2,9 @@ require 'features_helper'
 
 describe 'List releases', type: :feature do
   before do
-    ReleaseRepository.new.create({ version: '1.0.0', title: 'First release',  released_at: Time.now })
-    ReleaseRepository.new.create({ version: '2.0.0', title: 'Second release', released_at: Time.now })
-    ReleaseRepository.new.create({ version: '3.0.0', title: 'Third release',  released_at: Time.now })
+    Fabricate.create(:release, { version: '1.0.0', title: 'First release',  released_at: Time.now })
+    Fabricate.create(:release, { version: '2.0.0', title: 'Second release', released_at: Time.now })
+    Fabricate.create(:release, { version: '3.0.0', title: 'Third release',  released_at: Time.now })
   end
 
   it 'lists all releases by creation date' do

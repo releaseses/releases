@@ -4,7 +4,7 @@ describe 'Show release', type: :feature do
 
   describe 'existing' do
     let(:now) { Time.parse('2020-01-01 01:01:01') }
-    let(:release) { ReleaseRepository.new.create({ version: '1.0.0', title: 'First release',  released_at: now, summary_raw: '# Hello world!' }) }
+    let(:release) { Fabricate.create(:release, { version: '1.0.0', title: 'First release',  released_at: now, summary_raw: '# Hello world!' }) }
 
     before do
       Container.stub(:moment, now)
