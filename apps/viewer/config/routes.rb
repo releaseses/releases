@@ -6,3 +6,4 @@
 # resources :releases, only: [:index,]
 get '/releases', to: 'releases#index'
 get '/releases/:version', to: 'releases#show'
+get '/tags', to: 'tags#index'
