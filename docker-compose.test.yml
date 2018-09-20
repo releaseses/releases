@@ -26,3 +26,4 @@ services:
       INBUILT_WEBPACK_DEV_SERVER: 'false'
       WEBPACK_PUBLIC_PATH: '../spec/support/'
       DATABASE_URL: 'postgresql://test:test@db/test'
+      DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: 'true'
