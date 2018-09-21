@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCertificate, faRss, faClock, faArrowUp, faUserNinja, faEye } from '@fortawesome/free-solid-svg-icons'
+import { faCertificate, faRss, faSquare, faArrowUp, faUserNinja, faEye } from '@fortawesome/free-solid-svg-icons'
 import './Timeline.scss'
 import Spinner from 'react-spinkit'
 import Moment from 'react-moment'
+import TagPanel from './../containers/TagPanelContainer'
 
 export default class Timeline extends Component {
     constructor(props) {
@@ -101,32 +102,7 @@ export default class Timeline extends Component {
                             {this.renderLoaderOrReleases()}
                         </div>
                         <div className="column is-3">
-                            <nav className="panel is-blured">
-                                <a className="panel-block">
-                                    <span className="panel-icon">
-                                        <FontAwesomeIcon icon={faClock} className={'has-text-primary'}/>
-                                    </span>
-                                    Version release
-                                </a>
-                                <a className="panel-block">
-                                    <span className="panel-icon">
-                                        <FontAwesomeIcon icon={faEye} className={'has-text-info'}/>
-                                    </span>
-                                    Product update
-                                </a>
-                                <a className="panel-block">
-                                    <span className="panel-icon">
-                                        <FontAwesomeIcon icon={faArrowUp} className={'has-text-info'}/>
-                                    </span>
-                                    Feature
-                                </a>
-                                <a className="panel-block">
-                                    <span className="panel-icon">
-                                        <FontAwesomeIcon icon={faUserNinja} className={'has-text-danger'}/>
-                                    </span>
-                                    Postmortem
-                                </a>
-                            </nav>
+                            <TagPanel/>
                         </div>
                     </div>
                 </section>

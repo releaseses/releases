@@ -5,6 +5,9 @@ import {
     RECEIVE_RELEASE,
     RELEASE_NOT_FOUND,
     RESET_RELEASE,
+
+    REQUEST_TAGS,
+    RECEIVE_TAGS,
 } from '../constants/ActionTypes'
 
 /*
@@ -99,5 +102,43 @@ export function fetchRelease(id) {
 export function resetRelease() {
     return {
         type: RESET_RELEASE
+    }
+}
+
+/*
+ *
+ */
+
+function requestTags() {
+    return {
+        type: REQUEST_TAGS
+    }
+}
+
+function receiveTags(tags) {
+    return {
+        type: RECEIVE_TAGS,
+        tags
+    }
+}
+
+export function fetchTags() {
+    return (dispatch) => {
+        dispatch(requestTags())
+
+        return fetch('/viewer/tags', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                throw response.json()
+            }
+        })
+            .then(response => dispatch(receiveTags(response.tags)));
     }
 }
