@@ -5,7 +5,7 @@ import { fetchTags } from '../actions/index'
 
 const mapStateToProps = (state) => ({
     isFetching: state.tags.isFetching,
-    tags: state.tags.items,
+    response: state.tags.response,
 })
 
 const mapDispatchToEvents = (dispatch) => {

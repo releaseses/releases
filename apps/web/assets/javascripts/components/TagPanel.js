@@ -41,15 +41,20 @@ export default class TagPanel extends Component {
     renderTags() {
         return (
             <nav className="panel">
-                { this.props.tags.map((tag) => (
-                    <a className="panel-block" key={tag.slug}>
-                        <span className="panel-icon">
-                            <FontAwesomeIcon icon={faSquare} style={{ textColor: tag.color }}/>
-                        </span>
-                        { tag.name }
-                    </a>
-                )) }
+                { this.props.response.result.map((key) => this.renderTag(key)) }
             </nav>
+        )
+    }
+
+    renderTag(key) {
+        const tag = this.props.response.entities.tags[key]
+        return (
+            <a key={key} className="panel-block">
+                <span className="panel-icon">
+                    <FontAwesomeIcon icon={faSquare} style={{ textColor: tag.color }}/>
+                </span>
+                { tag.name }
+            </a>
         )
     }
 

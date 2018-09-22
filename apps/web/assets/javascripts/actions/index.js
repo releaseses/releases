@@ -1,3 +1,5 @@
+import { normalize } from 'normalizr'
+import { tagCollection } from '../../../../../assets/schemas/tags'
 import {
     REQUEST_RELEASES,
     RECEIVE_RELEASES,
@@ -118,7 +120,7 @@ function requestTags() {
 function receiveTags(tags) {
     return {
         type: RECEIVE_TAGS,
-        tags
+        response: normalize(tags, tagCollection)
     }
 }
 

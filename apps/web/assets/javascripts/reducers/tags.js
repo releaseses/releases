@@ -4,8 +4,10 @@ import {
 } from '../constants/ActionTypes'
 
 const initialState = {
-    "isFetching": false,
-    "items": []
+    isFetching: false,
+    response: {
+        result: []
+    }
 }
 
 export const tags = (state = initialState, action) => {
@@ -20,7 +22,7 @@ export const tags = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                items: action.tags,
+                response: action.response
             }
 
         default:
