@@ -9,8 +9,12 @@ import {
     REQUEST_RELEASE_CREATE,
     REQUEST_RELEASE_CREATE_FAILED,
     RECEIVE_RELEASE_CREATE,
+    REQUEST_TAGS,
+    RECEIVE_TAGS
 } from '../constants/ActionTypes'
 
+import { normalize } from 'normalizr'
+import { tagCollection } from '../../../../../assets/schemas/tags'
 import { SubmissionError } from 'redux-form'
 
 /*
@@ -189,5 +193,44 @@ export function storeRelease(properties) {
                     throw new SubmissionError(content.errors.release)
                 })
             });
+    }
+}
+
+
+/*
+ *
+ */
+
+function requestTags() {
+    return {
+        type: REQUEST_TAGS
+    }
+}
+
+function receiveTags(tags) {
+    return {
+        type: RECEIVE_TAGS,
+        response: normalize(tags, tagCollection)
+    }
+}
+
+export function fetchTags() {
+    return (dispatch) => {
+        dispatch(requestTags())
+
+        return fetch('/builder/tags', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                throw response.json()
+            }
+        })
+            .then(response => dispatch(receiveTags(response.tags)));
     }
 }
