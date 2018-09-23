@@ -4,7 +4,8 @@ import Enzyme, {mount} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { reduxForm } from 'redux-form'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 
 Enzyme.configure({adapter: new Adapter()})
 
@@ -26,8 +27,20 @@ const setup = (propOverrides) => {
 }
 
 const Form = (propOverrides) => {
-    const store = createStore(function () {
-    })
+    const store = createStore(
+        function () {
+            return {
+                tags: {
+                    response: {
+                        entities: {
+                            tags: []
+                        }
+                    }
+                }
+            }
+        },
+        applyMiddleware(thunkMiddleware)
+    )
     const WrappedForm = reduxForm({form: 'release'})(ReleaseForm)
     return (<Provider store={store}>
         <WrappedForm {...setup(propOverrides)}/>
@@ -68,6 +81,12 @@ describe('component', () => {
             const wrapper = mount(<Form {...setup({successfullyUpdated: true})}/>)
 
             expect(wrapper.text()).toMatch(/Successfully updated/)
+        })
+
+        it('renders tag select', () => {
+            let wrapper = mount(<Form {...setup()}/>)
+
+            expect(wrapper.find('TagSelect').length).toEqual(1)
         })
     })
 })

@@ -6,6 +6,7 @@ import DatePickerInput from './DatePickerInput'
 import ReactMDE from 'redux-forms-markdown-editor'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import TagSelect from '../containers/TagSelectContainer'
 
 class ReleaseForm extends Component {
     constructor(props) {
@@ -183,6 +184,18 @@ class ReleaseForm extends Component {
                                            canPreview: true,
                                        }}
                                        component={ReactMDE}
+                                />
+                            </div>
+                        </div>
+                        <hr/>
+                        <div className="columns">
+                            <div className="column">
+                                <Field id="release-tags"
+                                       label="Tags"
+                                       name="tags"
+                                       type="select"
+                                       placeholderText="Attach tags to the release"
+                                       component={TagSelect}
                                 />
                             </div>
                         </div>

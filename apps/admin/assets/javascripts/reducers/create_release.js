@@ -12,6 +12,7 @@ const initialState = {
         released_at: [],
         summary_raw: [],
         summary_html: [],
+        tags: []
     },
     lastCreatedId: null,
     item: {
@@ -20,6 +21,7 @@ const initialState = {
         released_at: '',
         summary_raw: '',
         summary_html: '',
+        tags: []
     }
 }
 

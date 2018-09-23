@@ -230,7 +230,9 @@ export function fetchTags() {
             } else {
                 throw response.json()
             }
-        })
-            .then(response => dispatch(receiveTags(response.tags)));
+        }).then(response => dispatch(receiveTags(response.tags)))
+          .catch(function (error) {
+              //  TODO: handle failed request
+          })
     }
 }
