@@ -1,3 +1,5 @@
+require_relative './tag'
+
 class Release < Hanami::Entity
   attributes do
     attribute :id,            Types::Int
@@ -8,5 +10,6 @@ class Release < Hanami::Entity
     attribute :released_at,   Types::Time
     attribute :created_at,    Types::Time
     attribute :updated_at,    Types::Time
+    attribute :tags,          Types::Collection(::Tag)
   end
 end

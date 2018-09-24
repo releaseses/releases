@@ -34,4 +34,11 @@ class ReleaseRepository < Hanami::Repository
         .map_to(Release)
         .to_a
   end
+
+  def find_by_id_with_tags(id)
+    aggregate(:tags)
+        .where(id: id)
+        .map_to(Release)
+        .one
+  end
 end
