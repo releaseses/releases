@@ -69,4 +69,42 @@ RSpec.describe ReleaseRepository, type: :repository do
       expect(releases.map(&:version)).to eq(%w(2.0.0 1.0.0))
     end
   end
+
+  describe '#create_with_tags' do
+    let(:tags) do
+      Fabricate.times(2, :tag) do
+        slug { sequence(:slug) { |i| "slug-#{i}" } }
+        name { sequence(:name) { |i| "name #{i}" } }
+      end
+    end
+
+    it 'returns releases with tags' do
+      release = repo.create_with_tags(Fabricate.attributes_for(:release), tags)
+
+      expect(release.id).not_to be_nil
+      expect(release.tags.size).to eq(2)
+    end
+  end
+
+  describe '#udpate_with_tags' do
+    let(:tags) do
+      Fabricate.times(2, :tag) do
+        slug { sequence(:slug) { |i| "slug-#{i}" } }
+        name { sequence(:name) { |i| "name #{i}" } }
+      end
+    end
+    let(:release) do
+      release = Fabricate.create(:release)
+      Fabricate.create(:release_tag, release_id: release.id, tag_id: tags.first.id)
+      Fabricate.create(:release_tag, release_id: release.id, tag_id: tags.last.id)
+      release
+    end
+
+    it 'returns releases with tags' do
+      r = repo.update_with_tags(release.id, Fabricate.attributes_for(:release), [tags.first.to_hash])
+
+      expect(r.id).not_to be_nil
+      expect(r.tags.size).to eq(1)
+    end
+  end
 end

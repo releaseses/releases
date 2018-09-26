@@ -43,12 +43,27 @@ class ReleaseRepository < Hanami::Repository
   end
 
   def create_with_tags(release, tags)
+    # @todo Refactor ReleaseRepository#create_with_tags
+    # @body There should be a way to return Release entity with attached tags without extra SELECT
     transaction do
-      create(release).tap do |r|
-        tags.each do |tag|
-          assoc(:release_tags, r).add(tag_id: tag.id)
-        end
+      r = create(release)
+      tags.each do |tag|
+        assoc(:release_tags, r).add(tag_id: tag.id)
       end
+      find_by_id_with_tags(r.id)
+    end
+  end
+
+  def update_with_tags(id, release_attributes, tag_attributes)
+    # @todo Refactor ReleaseRepository#update_with_tags
+    # @body There should be a way to make it
+    transaction do
+      r = update(id, release_attributes)
+      assoc(:release_tags, r).delete
+      tag_attributes.each do |tag|
+        assoc(:release_tags, r).add(tag_id: tag[:id])
+      end
+      find_by_id_with_tags(r.id)
     end
   end
 end
