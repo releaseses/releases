@@ -1,26 +1,18 @@
 module Builder::Controllers::Releases
   class Update
-    include Import[:release_repository]
+    include Import[:update_release_operation]
     include Builder::Action
-
-    params do
-      required(:release).schema do
-        required(:version).filled
-        required(:title).filled
-        required(:released_at).filled
-        optional(:summary_raw).filled
-        optional(:summary_html).filled
-      end
-    end
+    include Dry::Monads::Result::Mixin
 
     expose :release, :errors
 
     def call(params)
-      @errors = params.errors
-      if params.valid?
-        @release = release_repository.update(params.get(:id), params.get(:release))
+      case result = update_release_operation.call(id: params.get(:id), payload: params.get(:release))
+      when Success
+        @release = result.value!
         self.status = ::Rack::Utils.status_code(:ok)
-      else
+      when Failure
+        @errors = result.failure
         self.status = ::Rack::Utils.status_code(:unprocessable_entity)
       end
     end

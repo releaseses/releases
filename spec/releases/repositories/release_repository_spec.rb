@@ -101,7 +101,7 @@ RSpec.describe ReleaseRepository, type: :repository do
     end
 
     it 'returns releases with tags' do
-      r = repo.update_with_tags(release.id, Fabricate.attributes_for(:release), [tags.first.to_hash])
+      r = repo.update_with_tags(release.id, Fabricate.attributes_for(:release), [tags.first])
 
       expect(r.id).not_to be_nil
       expect(r.tags.size).to eq(1)

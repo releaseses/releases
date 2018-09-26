@@ -8,6 +8,7 @@ class Container
   # Operations
   register :create_tag_operation, -> { CreateTag.new }, memoize: true
   register :create_release_operation, -> { CreateRelease.new }, memoize: true
+  register :update_release_operation, -> { UpdateRelease.new }, memoize: true
 end
 
 Import = Dry::AutoInject(Container)
