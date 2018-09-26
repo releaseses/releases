@@ -41,4 +41,14 @@ class ReleaseRepository < Hanami::Repository
         .map_to(Release)
         .one
   end
+
+  def create_with_tags(release, tags)
+    transaction do
+      create(release).tap do |r|
+        tags.each do |tag|
+          assoc(:release_tags, r).add(tag_id: tag.id)
+        end
+      end
+    end
+  end
 end

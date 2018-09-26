@@ -6,7 +6,7 @@ describe 'Create release', type: :feature do
     before do
       header 'Accept', 'application/json'
       header 'Content-Type', 'application/json'
-      post '/builder/releases', JSON.generate({release: { version: '1.0.0', title: 'First release', released_at: '2018-01-01 10:10:10', summary_raw: '# hello', summary_html: '<h1>hello</h1>' }})
+      post '/builder/releases', JSON.generate({release: { version: '1.0.0', title: 'First release', released_at: '2018-01-01 10:10:10', summary_raw: '# hello', summary_html: '<h1>hello</h1>', tags: [] }})
 
       @parsed_body = JSON.parse(last_response.body)
     end
@@ -15,6 +15,10 @@ describe 'Create release', type: :feature do
       expect(last_response.status).to eq(201)
       expect(@parsed_body['release']['id']).not_to be_nil
       expect(@parsed_body['release']['version']).to eq('1.0.0')
+    end
+
+    it 'responds with tags' do
+      expect(@parsed_body['release']['tags']). to eq([])
     end
 
     it 'stores the release' do

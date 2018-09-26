@@ -1,26 +1,18 @@
 module Builder::Controllers::Releases
   class Create
-    include Import[:release_repository]
+    include Import[:create_release_operation]
     include Builder::Action
-
-    params do
-      required(:release).schema do
-        required(:version).filled
-        required(:title).filled
-        optional(:summary_raw).filled
-        optional(:summary_html).filled
-        required(:released_at).filled
-      end
-    end
+    include Dry::Monads::Result::Mixin
 
     expose :release, :errors
 
     def call(params)
-      @errors = params.errors
-      if params.valid?
-        @release = release_repository.create(params.get(:release))
+      case result = create_release_operation.call(payload: params.get(:release))
+      when Success
+        @release = result.value!
         self.status = ::Rack::Utils.status_code(:created)
-      else
+      when Failure
+        @errors = result.failure
         self.status = ::Rack::Utils.status_code(:unprocessable_entity)
       end
     end
