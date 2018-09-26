@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import chroma from 'chroma-js'
 import Select from 'react-select'
 
@@ -11,18 +11,21 @@ class TagSelect extends Component {
         this.props.input.onChange(tags)
     }
 
+    tagsToOptions(tags) {
+        return Object
+            .keys(tags)
+            .map(function (slug) {
+                let tag = tags[slug]
+                tag['key'] = tag.slug
+                tag['value'] = tag.slug
+                tag['label'] = tag.name
+                return tag
+            })
+    }
+
     render() {
-        const tags = this.props.options,
-            options = Object
-                .keys(this.props.options)
-                .map(function (slug) {
-                    let tag = tags[slug]
-                    return {
-                        value: tag.slug,
-                        label: tag.name,
-                        color: tag.color,
-                    }
-                }),
+        const options = this.tagsToOptions(this.props.options),
+            selectedOptions = this.tagsToOptions(this.props.input.value),
             colourStyles = {
                 control: styles => ({...styles, backgroundColor: 'white'}),
                 option: (styles, {data, isDisabled, isFocused, isSelected}) => {
@@ -67,6 +70,7 @@ class TagSelect extends Component {
                     options={options}
                     styles={colourStyles}
                     onChange={ value => this.handleChange(value) }
+                    value={ selectedOptions }
             />
         )
     }

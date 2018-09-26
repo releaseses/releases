@@ -1,4 +1,4 @@
 import { schema } from 'normalizr'
 
-export const tagEntity = new schema.Entity('tags', {}, { idAttribute: 'slug' })
+export const tagEntity = new schema.Entity('tags', {})
 export const tagCollection = [tagEntity]
