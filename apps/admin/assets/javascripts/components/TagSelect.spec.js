@@ -11,7 +11,10 @@ const setup = (propOverrides) => {
     return Object.assign({
         fetchTags: jest.fn(),
         isFetching: false,
-        options: {}
+        options: {},
+        input: {
+            value: ''
+        }
     }, propOverrides)
 }
 
@@ -27,8 +30,8 @@ describe('component', () => {
 
         it('lists options', () => {
             const options = [
-                {slug: 'slug_0', name: 'label 0', color: '#FF0000'},
-                {slug: 'slug_1', name: 'label 1', color: '#FF0001'},
+                {id: 1, slug: 'slug_0', name: 'label 0', color: '#FF0000'},
+                {id: 2, slug: 'slug_1', name: 'label 1', color: '#FF0001'},
             ]
             const normalizedOptions = normalize(options, tagCollection)
 
@@ -36,8 +39,8 @@ describe('component', () => {
 
             const actualOptions = wrapper.find('Select').props().options
             expect(actualOptions).toEqual(expect.arrayContaining([
-                {"color": "#FF0000", "label": "label 0", "value": "slug_0"},
-                {"color": "#FF0001", "label": "label 1", "value": "slug_1"}
+                {"id": 1, "color": "#FF0000", "label": "label 0", "name": "label 0", "value": "slug_0", "slug": "slug_0", "key": "slug_0"},
+                {"id": 2, "color": "#FF0001", "label": "label 1", "name": "label 1", "value": "slug_1", "slug": "slug_1", "key": "slug_1"}
             ]));
         })
     })

@@ -38,9 +38,9 @@ describe('component', () => {
         it('shows tags', () => {
             const wrapper = shallow(<TagPanel {...setup({
                 response: normalize([
-                    {name: 'tag 1', slug: 'tag-1', color: '#FF0001'},
-                    {name: 'tag 2', slug: 'tag-2', color: '#FF0002'},
-                    {name: 'tag 3', slug: 'tag-3', color: '#FF0003'},
+                    {id: 1, name: 'tag 1', slug: 'tag-1', color: '#FF0001'},
+                    {id: 2, name: 'tag 2', slug: 'tag-2', color: '#FF0002'},
+                    {id: 3, name: 'tag 3', slug: 'tag-3', color: '#FF0003'},
                 ], tagCollection)
             })}/>)
 
