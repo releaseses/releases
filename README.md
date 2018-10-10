@@ -29,12 +29,12 @@ To locally start the environment need to run the following commands:
 
     git clone git@github.com:releaseses/releases.git
     cd releases
-    echo "DATABASE_URL='postgresql://localhost/releases'" > .env.development
-    echo "NODE_ENV='development'" > .env.development
-    echo "WEBPACK_DEV_SERVER='true'" > .env.development
-    echo "SERVE_STATIC_ASSETS='false'" > .env.development
-    echo "INBUILT_WEBPACK_DEV_SERVER='true'" > .env.development
-    echo "WEBPACK_PUBLIC_PATH='/'" > .env.development 
+    echo "DATABASE_URL='postgresql://localhost/releases'" >> .env.development
+    echo "NODE_ENV='development'" >> .env.development
+    echo "WEBPACK_DEV_SERVER='true'" >> .env.development
+    echo "SERVE_STATIC_ASSETS='false'" >> .env.development
+    echo "INBUILT_WEBPACK_DEV_SERVER='true'" >> .env.development
+    echo "WEBPACK_PUBLIC_PATH='/'" >> .env.development
     npm install
     bundle install
     bundle exec hanami db prepare
